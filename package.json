@@ -1,0 +1,27 @@
+{
+  "name": "Backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Estimatic/Backend.git",
+  "author": "Thomas Hessburg <44884308+TomHessburg@users.noreply.github.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "faker": "^4.1.0",
+    "helmet": "^3.21.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.7.0",
+    "morgan": "^1.9.1",
+    "redis": "^2.8.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.2"
+  }
+}
