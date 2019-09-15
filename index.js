@@ -3,13 +3,21 @@ const { json, urlencoded } = require("body-parser");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const mongoose = require("mongoose");
+const { authenticate } = require("./auth/tokenHandlers.js");
 
 const server = express();
 
+// routers
+const userRouter = require("./routers/userRouter.js");
+
+// middleware
 server.use(json());
 server.use(urlencoded({ extended: true }));
 server.use(morgan("dev"));
 server.use(helmet());
+
+// route hookup
+server.use("/api/users", authenticate, userRouter);
 
 const port = process.env.PORT || 5000;
 
