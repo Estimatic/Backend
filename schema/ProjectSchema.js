@@ -1,28 +1,35 @@
 const mongoose = require("mongoose");
 
-const customer = new mongoose.Schema(
+const project = new mongoose.Schema(
   {
-    fullName: {
+    title: {
       type: String,
       required: true
     },
-    email: {
-      type: String,
+    // the customer that this project is related to
+    customer_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "customer",
       required: true
     },
-    address: {
-      type: String,
-      unique: true
-    },
-    // the company which this customer is owned by.
+    // the company which this project is related to.
     company_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "company",
-      default: null
+      required: true
     }
+    /*
+     **
+     **
+     **
+    still thinking through the most efficient way to store the actual estimates
+     **
+     **
+     **
+     */
   },
   { timestamps: true }
 );
 
-const Customer = mongoose.model("customer", customer);
+const Project = mongoose.model("project", project);
 module.exports = Customer;
