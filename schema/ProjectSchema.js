@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
-// takes more
-const user = new mongoose.Schema(
+const customer = new mongoose.Schema(
   {
     fullName: {
       type: String,
@@ -9,23 +8,21 @@ const user = new mongoose.Schema(
     },
     email: {
       type: String,
-      required: true,
-      unique: true
-    },
-    password: {
-      type: String,
       required: true
     },
+    address: {
+      type: String,
+      unique: true
+    },
+    // the company which this customer is owned by.
     company_id: {
-      // the company which this user belongs to
       type: mongoose.Schema.Types.ObjectId,
       ref: "company",
-      required: true,
       default: null
     }
   },
   { timestamps: true }
 );
 
-const User = mongoose.model("user", user);
-module.exports = User;
+const Customer = mongoose.model("customer", customer);
+module.exports = Customer;
