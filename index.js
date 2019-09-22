@@ -1,6 +1,8 @@
 const express = require("express");
 const { json, urlencoded } = require("body-parser");
 const morgan = require("morgan");
+const cors = require("cors");
+
 const helmet = require("helmet");
 const mongoose = require("mongoose");
 const { authenticate } = require("./auth/tokenHandlers.js");
@@ -10,9 +12,12 @@ const server = express();
 // routers
 const userRouter = require("./routers/userRouter.js");
 const authRouter = require("./routers/authRouter.js");
+const companyRouter = require("./routers/companyRouter.js");
 
 // middleware
 server.use(json());
+server.use(cors());
+
 server.use(urlencoded({ extended: true }));
 server.use(morgan("dev"));
 server.use(helmet());
@@ -20,6 +25,7 @@ server.use(helmet());
 // route hookup
 server.use("/api/users", authenticate, userRouter);
 server.use("/api/auth", authRouter);
+server.use("/api/company", companyRouter);
 
 server.get("/", (req, res) => {
   res.send("working");

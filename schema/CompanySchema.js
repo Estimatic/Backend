@@ -6,6 +6,21 @@ const company = new mongoose.Schema(
       type: String,
       required: true
     },
+    phone: {
+      type: Number
+    },
+    num_employees: {
+      type: Number
+    },
+    state: {
+      type: String
+    },
+    city: {
+      type: String
+    },
+    address: {
+      type: String
+    },
     // the person who created this company will be the default
     owner_id: {
       type: mongoose.Schema.Types.ObjectId,
