@@ -3,8 +3,8 @@ const router = express.Router();
 const User = require("../schema/userSchema.js");
 const bcrypt = require("bcrypt");
 
-// const jwt = require("jsonwebtoken");
-// const secret = require("../../server/secrets.js").jwtSecret;
+const jwt = require("jsonwebtoken");
+const secret = process.env.JWT_SECRET || "pubsecret";
 
 router.post("/register", async (req, res) => {
   const { full_name, email, password, company_id } = req.body;
@@ -22,7 +22,7 @@ router.post("/register", async (req, res) => {
         });
 
         res.status(201).json({
-          message: "We've added this user to your company",
+          message: "We've created your new user.",
           user: newUser
         });
       } catch (err) {
@@ -36,36 +36,36 @@ router.post("/register", async (req, res) => {
   }
 });
 
-// router.post("/login", (req, res) => {
-//   const { username, password } = req.body;
-//   db("users")
-//     .where({ username })
-//     .first()
-//     .then(user => {
-//       if (bcrypt.compareSync(password, user.password)) {
-//         const token = generateToken(user);
-//         res.status(200).json({
-//           message: "welcome back!",
-//           token
-//         });
-//       } else {
-//         res.status(401).json({ message: "invalid credentials" });
-//       }
-//     })
-//     .catch(err => res.status(500).json({ errMessage: "unable to login" }));
-// });
+router.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email }).exec();
 
-// function generateToken(user) {
-//   const payload = {
-//     subject: user.id,
-//     username: user.username,
-//     department: user.department
-//   };
-//   const options = {
-//     expiresIn: "1h"
-//   };
+    if (bcrypt.compareSync(password, user.password)) {
+      const token = generateToken(user);
+      res.status(200).json({
+        message: "welcome back!",
+        user,
+        token
+      });
+    } else {
+      res.status(401).json({ message: "invalid credentials" });
+    }
+  } catch (err) {
+    res.status(500).json({ errMessage: "unable to login" });
+  }
+});
 
-//   return jwt.sign(payload, secret, options);
-// }
+function generateToken(user) {
+  const payload = {
+    subject: user._id,
+    email: user.email
+  };
+  const options = {
+    expiresIn: "1d"
+  };
+
+  return jwt.sign(payload, secret, options);
+}
 
 module.exports = router;
