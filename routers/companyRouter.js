@@ -19,15 +19,11 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
   const id = req.params.id;
 
-  console.log("UPDATING A COMPANY", req.body);
-
   try {
     const updatedCompany = await Company.findByIdAndUpdate(id, req.body, {
       new: true,
       useFindAndModify: false
     }).exec();
-
-    console.log(updatedCompany);
 
     res.status(201).json(updatedCompany);
   } catch (err) {

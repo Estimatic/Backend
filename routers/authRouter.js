@@ -7,7 +7,6 @@ const bcrypt = require("bcrypt");
 // const secret = require("../../server/secrets.js").jwtSecret;
 
 router.post("/register", async (req, res) => {
-  console.log(req.body);
   const { full_name, email, password, company_id } = req.body;
 
   if (full_name && email && password && company_id) {
