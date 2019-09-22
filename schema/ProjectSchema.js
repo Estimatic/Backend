@@ -32,4 +32,4 @@ const project = new mongoose.Schema(
 );
 
 const Project = mongoose.model("project", project);
-module.exports = Customer;
+module.exports = Project;

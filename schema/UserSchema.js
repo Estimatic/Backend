@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 // takes more
 const user = new mongoose.Schema(
   {
-    fullName: {
+    full_name: {
       type: String,
       required: true
     },
@@ -20,7 +20,6 @@ const user = new mongoose.Schema(
       // the company which this user belongs to
       type: mongoose.Schema.Types.ObjectId,
       ref: "company",
-      required: true,
       default: null
     }
   },

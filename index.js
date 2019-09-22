@@ -9,6 +9,7 @@ const server = express();
 
 // routers
 const userRouter = require("./routers/userRouter.js");
+const authRouter = require("./routers/authRouter.js");
 
 // middleware
 server.use(json());
@@ -18,6 +19,11 @@ server.use(helmet());
 
 // route hookup
 server.use("/api/users", authenticate, userRouter);
+server.use("/api/auth", authRouter);
+
+server.get("/", (req, res) => {
+  res.send("working");
+});
 
 const port = process.env.PORT || 5000;
 
