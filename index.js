@@ -25,7 +25,7 @@ server.use(helmet());
 // route hookup
 server.use("/api/users", authenticate, userRouter);
 server.use("/api/auth", authRouter);
-server.use("/api/company", authenticate, companyRouter);
+server.use("/api/company", companyRouter);
 
 server.get("/", (req, res) => {
   res.send("working");

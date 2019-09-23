@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Company = require("../schema/CompanySchema.js");
+const { authenticate } = require("../auth/tokenHandlers");
 
 router.post("/", async (req, res) => {
   try {
@@ -16,7 +17,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", authenticate, async (req, res) => {
   const id = req.params.id;
 
   try {
@@ -33,7 +34,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 // get single company by ID
-router.get("/:id", async (req, res) => {
+router.get("/:id", authenticate, async (req, res) => {
   try {
     const company = await Company.findById(req.params.id).exec();
 
