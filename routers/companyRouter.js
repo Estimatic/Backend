@@ -17,7 +17,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", authenticate, async (req, res) => {
+router.put("/:id", async (req, res) => {
   const id = req.params.id;
 
   try {

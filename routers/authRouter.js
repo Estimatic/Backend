@@ -8,12 +8,13 @@ const secret = process.env.JWT_SECRET || "pubsecret";
 
 router.post("/register", async (req, res) => {
   const { full_name, email, password, company_id } = req.body;
+  console.log(req.body);
 
   if (full_name && email && password && company_id) {
     hashedPassword = bcrypt.hashSync(password, 8);
     if (company_id) {
-      // if a company id is present, user type is automaticall set to 1
       try {
+        console.log("in try catch");
         const newUser = await User.create({
           full_name,
           password: hashedPassword,
@@ -21,6 +22,7 @@ router.post("/register", async (req, res) => {
           company_id
         });
 
+        console.log("made it?");
         res.status(201).json({
           message: "We've created your new user.",
           user: newUser
