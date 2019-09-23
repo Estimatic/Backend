@@ -4,7 +4,7 @@ const User = require("../schema/userSchema.js");
 // register and login end points will be present in an authRouter.js file
 
 // get single user by ID
-router.get("/:id", async (req, res) => {
+router.get("/single_user/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id).exec();
 
@@ -74,6 +74,24 @@ router.delete("/:id", async (req, res) => {
       .status(500)
       .json({ message: "There was an error retrieving this user." });
   }
+});
+
+// ****
+// ****
+// ****
+// ****
+// uses JWT to retrieve a users info
+// ****
+// ****
+// ****
+// ****
+router.get("/getWithJwt", async (req, res) => {
+  console.log("look here", res.locals.token.email);
+  // res.status(201).json(res.locals.token.email);
+  const email = res.locals.token.email;
+  const user = await User.findOne({ email }).exec();
+
+  res.status(200).json(user);
 });
 
 module.exports = router;

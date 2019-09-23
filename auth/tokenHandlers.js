@@ -1,27 +1,19 @@
 const jwt = require("jsonwebtoken");
 
-const jwtKey = process.env.JWT_SECRET || "totaly secrative";
+const jwtKey = process.env.JWT_SECRET || "pubsecret";
 
 function authenticate(req, res, next) {
-  // a piece of middleware to run before any routes we wish to be protected
-  // first we check to make sure the request has an auth header containing a jwt token
-  const token = req.get("Authorization");
-
-  if (token) {
-    // then we verify that token
-    jwt.verify(token, jwtKey, (err, decoded) => {
-      // if there was an error we return the error
-      if (err) return res.status(401).json(err);
-
-      req.decoded = decoded;
-      // else move on the next middleware
+  const token = req.headers.authorization;
+  jwt.verify(token, jwtKey, (err, decodedToken) => {
+    if (err) {
+      res.status(401).json({ message: "Invalid token" });
+    } else {
+      console.log("herere??");
+      console.log(decodedToken);
+      res.locals.token = decodedToken;
       next();
-    });
-  } else {
-    return res.status(401).json({
-      error: "No token provided, must be set on the Authorization Header"
-    });
-  }
+    }
+  });
 }
 
 function generateToken(user) {
