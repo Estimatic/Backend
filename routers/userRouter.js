@@ -86,7 +86,6 @@ router.delete("/:id", async (req, res) => {
 // ****
 // ****
 router.get("/getWithJwt", async (req, res) => {
-  console.log("look here", res.locals.token.email);
   // res.status(201).json(res.locals.token.email);
   const email = res.locals.token.email;
   const user = await User.findOne({ email }).exec();

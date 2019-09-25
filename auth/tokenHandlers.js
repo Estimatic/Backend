@@ -8,8 +8,6 @@ function authenticate(req, res, next) {
     if (err) {
       res.status(401).json({ message: "Invalid token" });
     } else {
-      console.log("herere??");
-      console.log(decodedToken);
       res.locals.token = decodedToken;
       next();
     }
