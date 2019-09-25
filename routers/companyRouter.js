@@ -37,7 +37,6 @@ router.put("/:id", async (req, res) => {
 router.get("/:id", authenticate, async (req, res) => {
   try {
     const company = await Company.findById(req.params.id).exec();
-
     if (company) {
       res.status(200).json(company);
     } else {
