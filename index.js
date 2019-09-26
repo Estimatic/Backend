@@ -13,6 +13,7 @@ const server = express();
 const userRouter = require("./routers/userRouter.js");
 const authRouter = require("./routers/authRouter.js");
 const companyRouter = require("./routers/companyRouter.js");
+const invitationRouter = require("./routers/invitationRouter.js");
 
 // middleware
 server.use(json());
@@ -26,6 +27,7 @@ server.use(helmet());
 server.use("/api/users", authenticate, userRouter);
 server.use("/api/auth", authRouter);
 server.use("/api/company", companyRouter);
+server.use("/api/invitation", invitationRouter);
 
 server.get("/", (req, res) => {
   res.send("working");
