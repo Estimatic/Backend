@@ -1,9 +1,13 @@
 const router = require("express").Router();
 const Invitation = require("../schema/InvitationSchema");
 const { authenticate } = require("../auth/tokenHandlers");
+require("dotenv").config();
+const sgMail = require("@sendgrid/mail");
+const clientEndpoint = process.env.CLIENT_ENDPOINT || "http://localhost:3000";
 
 router.post("/", authenticate, async (req, res) => {
   try {
+    // create the invitation
     const { full_name, email, sender_name, company_id } = req.body;
     const newInvitation = await Invitation.create({
       full_name,
@@ -12,7 +16,17 @@ router.post("/", authenticate, async (req, res) => {
       company_id
     });
 
-    res.status(201).json(newInvitation);
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    const msg = {
+      to: `${email}`,
+      from: `${process.env.SENDGRID_EMAIL}`,
+      subject: "Welcome to Estimatic",
+      text: `${sender_name} has invited you to join the team on Estimatic!`,
+      html: `<strong>Were SO happy to have you!</strong> <p>Simply follow the link below to complete your sign up!</p> <h2>${clientEndpoint}/joincompany/${newInvitation._id}</h2>`
+    };
+    const sentMail = await sgMail.send(msg);
+    console.log("sent mail");
+    res.status(201).json({ message: "Successfully sent your invitation!" });
   } catch (err) {
     res
       .status(500)
