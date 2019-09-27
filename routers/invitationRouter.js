@@ -49,8 +49,9 @@ router.delete("/:id", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
+  const id = req.params.id;
   try {
-    const invitation = await Invitation.findById(req.params.id).exec();
+    const invitation = await Invitation.findById(id).exec();
     if (invitation) {
       res.status(200).json(invitation);
     } else {
