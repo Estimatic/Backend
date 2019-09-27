@@ -21,6 +21,18 @@ const company = new mongoose.Schema(
     address: {
       type: String
     },
+    main_color: {
+      type: String,
+      default: null
+    },
+    secondary_color: {
+      type: String,
+      default: null
+    },
+    side_bar_color: {
+      type: String,
+      default: null
+    },
     // the person who created this company will be the default
     owner_id: {
       type: mongoose.Schema.Types.ObjectId,
