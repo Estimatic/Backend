@@ -4,10 +4,7 @@ const { authenticate } = require("../auth/tokenHandlers");
 
 router.post("/", async (req, res) => {
   try {
-    const { name } = req.body;
-    const newCompany = await Company.create({
-      name
-    });
+    const newCompany = await Company.create(req.body);
 
     res.status(201).json(newCompany);
   } catch (err) {

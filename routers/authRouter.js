@@ -8,6 +8,8 @@ const sgMail = require("@sendgrid/mail");
 const jwt = require("jsonwebtoken");
 const secret = process.env.JWT_SECRET || "pubsecret";
 
+const { authenticate } = require("../auth/tokenHandlers.js");
+
 router.post("/register", async (req, res) => {
   const { full_name, email, password, company_id } = req.body;
 
@@ -73,6 +75,23 @@ router.post("/login", async (req, res) => {
     }
   } catch (err) {
     res.status(500).json({ errMessage: "unable to login" });
+  }
+});
+
+router.put("/updatePassword/:id", authenticate, async (req, res) => {
+  try {
+    const { newPass, oldPass } = req.body;
+    const user = await User.findById(req.params.id).exec();
+
+    if (bcrypt.compareSync(oldPass, user.password)) {
+      let hashedPassword = bcrypt.hashSync(newPass, 8);
+      await User.findByIdAndUpdate(req.params.id, { password: hashedPassword });
+      res.status(201).send(true);
+    } else {
+      res.status(401).send(false);
+    }
+  } catch (e) {
+    res.status(500).send(false);
   }
 });
 
