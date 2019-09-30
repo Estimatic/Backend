@@ -11,14 +11,13 @@ const customer = new mongoose.Schema(
       required: true
     },
     address: {
-      type: String,
-      unique: true
+      type: String
     },
     // the company which this customer is owned by.
     company_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "company",
-      default: null
+      required: true
     }
   },
   { timestamps: true }
