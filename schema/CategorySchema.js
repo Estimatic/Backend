@@ -8,6 +8,11 @@ const category = new mongoose.Schema({
   unit: {
     type: String,
     required: true
+  },
+  company_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "company",
+    default: null
   }
 });
 
