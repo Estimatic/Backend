@@ -15,6 +15,7 @@ const authRouter = require("./routers/authRouter.js");
 const companyRouter = require("./routers/companyRouter.js");
 const invitationRouter = require("./routers/invitationRouter.js");
 const customerRouter = require("./routers/customerRouter.js");
+const categoryRouter = require("./routers/categoryRouter.js");
 
 // middleware
 server.use(json());
@@ -30,6 +31,7 @@ server.use("/api/auth", authRouter);
 server.use("/api/company", companyRouter);
 server.use("/api/invitation", invitationRouter);
 server.use("/api/customers", customerRouter);
+server.use("/api/categories", categoryRouter);
 
 server.get("/", (req, res) => {
   res.send("working");
