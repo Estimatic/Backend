@@ -9,6 +9,9 @@ const material = new mongoose.Schema(
     description: {
       type: String
     },
+    quantity: {
+      type: Number
+    },
     photoUrl: {
       type: String
     },
@@ -18,6 +21,7 @@ const material = new mongoose.Schema(
     category_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "category",
+      default: "",
       required: true
     }
   },
