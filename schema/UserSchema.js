@@ -16,6 +16,9 @@ const user = new mongoose.Schema(
       type: String,
       required: true
     },
+    photoUrl: {
+      type: String
+    },
     company_id: {
       // the company which this user belongs to
       type: mongoose.Schema.Types.ObjectId,
