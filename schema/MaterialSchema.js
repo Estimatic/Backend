@@ -18,6 +18,9 @@ const material = new mongoose.Schema(
     grade: {
       type: String
     },
+    price: {
+      type: Number
+    },
     category_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "category",
