@@ -2,6 +2,7 @@ const express = require("express");
 const { json, urlencoded } = require("body-parser");
 const morgan = require("morgan");
 const cors = require("cors");
+const compression = require("compression");
 
 const helmet = require("helmet");
 const mongoose = require("mongoose");
@@ -21,6 +22,8 @@ const materialsRouter = require("./routers/materialsRouter.js");
 // middleware
 server.use(json());
 server.use(cors());
+// gives us GZIP compression
+server.use(compression());
 
 server.use(urlencoded({ extended: true }));
 server.use(morgan("dev"));
