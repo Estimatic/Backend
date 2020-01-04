@@ -2,14 +2,33 @@ const mongoose = require("mongoose");
 
 const project = new mongoose.Schema(
   {
-    title: {
+    projectName: {
       type: String,
       required: true
     },
+    address: {
+      type: String,
+      required: true
+    },
+    projectStatus: {
+      type: String,
+      required: true
+    },
+    isEstimated: Boolean,
+    dueDate: {
+      type: Number,
+      required: true
+    },
     // the customer that this project is related to
-    customer_id: {
+    customer: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "customer",
+      required: true
+    },
+    // the employee assigned to this project
+    assignedTo: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "users",
       required: true
     },
     // the company which this project is related to.
@@ -18,15 +37,6 @@ const project = new mongoose.Schema(
       ref: "company",
       required: true
     }
-    /*
-     **
-     **
-     **
-    still thinking through the most efficient way to store the actual estimates
-     **
-     **
-     **
-     */
   },
   { timestamps: true }
 );
