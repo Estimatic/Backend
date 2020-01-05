@@ -12,7 +12,8 @@ const project = new mongoose.Schema(
     },
     projectStatus: {
       type: String,
-      required: true
+      required: true,
+      default: "pre"
     },
     isEstimated: Boolean,
     dueDate: {

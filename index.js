@@ -18,6 +18,7 @@ const invitationRouter = require("./routers/invitationRouter.js");
 const customerRouter = require("./routers/customerRouter.js");
 const categoryRouter = require("./routers/categoryRouter.js");
 const materialsRouter = require("./routers/materialsRouter.js");
+const projectsRouter = require("./routers/projectRouter.js");
 
 // middleware
 server.use(json());
@@ -37,6 +38,7 @@ server.use("/api/invitation", invitationRouter);
 server.use("/api/customers", customerRouter);
 server.use("/api/categories", categoryRouter);
 server.use("/api/materials", materialsRouter);
+server.use("/api/projects", projectsRouter);
 
 server.get("/", (req, res) => {
   res.send("working");
