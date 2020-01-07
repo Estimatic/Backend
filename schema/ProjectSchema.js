@@ -15,7 +15,10 @@ const project = new mongoose.Schema(
       required: true,
       default: "pre"
     },
-    isEstimated: Boolean,
+    isEstimated: {
+      type: Boolean,
+      default: false
+    },
     dueDate: {
       type: Number,
       required: true
