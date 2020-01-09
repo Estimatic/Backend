@@ -52,7 +52,9 @@ router.get("/single/:id", authenticate, async (req, res) => {
 // retrieve all projects for a company
 router.get("/company/:companyId", authenticate, async (req, res) => {
   try {
-    const projects = await Project.find(req.params.companyId).exec();
+    const projects = await Project.find({
+      company_id: req.params.companyId
+    }).exec();
     res.status(200).json(projects);
   } catch (e) {
     res
