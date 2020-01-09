@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const project = new mongoose.Schema(
   {
-    projectName: {
+    project_name: {
       type: String,
       required: true
     },
@@ -10,16 +10,16 @@ const project = new mongoose.Schema(
       type: String,
       required: true
     },
-    projectStatus: {
+    project_status: {
       type: String,
       required: true,
       default: "pre"
     },
-    isEstimated: {
+    is_estimated: {
       type: Boolean,
       default: false
     },
-    dueDate: {
+    due_date: {
       type: Number,
       required: true
     },
@@ -30,7 +30,7 @@ const project = new mongoose.Schema(
       required: true
     },
     // the employee assigned to this project
-    assignedTo: {
+    assigned_to: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "users",
       required: true
